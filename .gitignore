@@ -2,3 +2,4 @@ Dataset
 Logs/
 model.h5
 model.keras
+model.tflite
