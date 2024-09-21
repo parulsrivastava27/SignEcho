@@ -10,7 +10,7 @@ from tensorflow.keras.callbacks import TensorBoard # type: ignore
 DATA_PATH = os.path.join('Dataset')
 
 # Actions that we try to detect
-actions = np.array(['hello'])
+actions = np.array(['hello', 'good'])
 
 # Thirty videos worth of data
 no_sequences = 30
@@ -40,21 +40,20 @@ log_dir = os.path.join('Logs')
 tb_callback = TensorBoard(log_dir=log_dir) 
 
 model = Sequential()
-model.add(LSTM(64, return_sequences=True, activation='tanh', input_shape=(30, 1662))) # Match input shape
-model.add(LSTM(128, return_sequences=True, activation='tanh'))
-model.add(LSTM(64, return_sequences=False, activation='tanh'))
+model.add(LSTM(64, return_sequences=True, activation='relu', input_shape=(30, 1662))) # Match input shape
+model.add(LSTM(128, return_sequences=True, activation='relu'))
+model.add(LSTM(64, return_sequences=False, activation='relu'))
 model.add(Dense(64, activation='relu'))
 model.add(Dense(32, activation='relu'))
 model.add(Dense(actions.shape[0], activation='softmax'))  # Number of actions
 
 model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['accuracy'])
 #! Change (epochs) as per the need of the datasets
-model.fit(X_train, y_train, epochs=200, callbacks=[tb_callback])
-
+model.fit(X_train, y_train, epochs=100, callbacks=[tb_callback])
 model.summary()
 
 res = model.predict(X_test)
-print(actions[np.argmax(res[0])])
-print(actions[np.argmax(y_test[0])])
+print(actions[np.argmax(res[1])])
+print(actions[np.argmax(y_test[1])])
 
-model.save('model.h5')
+model.save('model.keras')
