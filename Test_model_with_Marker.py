@@ -52,7 +52,7 @@ def extract_keypoints(results):
 DATA_PATH = os.path.join('Dataset')
 
 # Actions that we try to detect
-actions = np.array(['hello', 'good'])
+actions = np.array(['hello', 'good', 'afternoon'])
 
 # Thirty videos worth of data
 no_sequences = 30
@@ -93,7 +93,7 @@ model.add(Dense(64, activation='relu'))
 model.add(Dense(32, activation='relu'))
 model.add(Dense(actions.shape[0], activation='softmax'))  # Number of actions
 
-actions[np.argmax(res)]
+actions[np.argmax(res[1])]
 model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['accuracy'])
 actions[np.argmax(res[1])]
 

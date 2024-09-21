@@ -30,7 +30,7 @@ def extract_keypoints(results):
 DATA_PATH = os.path.join('Dataset')
 
 # Actions that we try to detect
-actions = np.array(['hello', 'good'])
+actions = np.array(['hello', 'good', 'afternoon'])
 
 # Thirty videos worth of data
 no_sequences = 30

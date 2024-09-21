@@ -10,7 +10,7 @@ from tensorflow.keras.callbacks import TensorBoard # type: ignore
 DATA_PATH = os.path.join('Dataset')
 
 # Actions that we try to detect
-actions = np.array(['hello', 'good'])
+actions = np.array(['hello', 'good', 'afternoon'])
 
 # Thirty videos worth of data
 no_sequences = 30
@@ -49,11 +49,11 @@ model.add(Dense(actions.shape[0], activation='softmax'))  # Number of actions
 
 model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['accuracy'])
 #! Change (epochs) as per the need of the datasets
-model.fit(X_train, y_train, epochs=100, callbacks=[tb_callback])
+model.fit(X_train, y_train, epochs=300, callbacks=[tb_callback])
 model.summary()
 
 res = model.predict(X_test)
-print(actions[np.argmax(res[1])])
-print(actions[np.argmax(y_test[1])])
+# print(actions[np.argmax(res[1])])
+# print(actions[np.argmax(y_test[1])])
 
 model.save('model.keras')
